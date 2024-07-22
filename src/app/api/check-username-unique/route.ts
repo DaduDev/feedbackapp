@@ -24,6 +24,17 @@ export async function GET(request: Request) {
             }, {status: 400})
         } 
         const {username} = result.data
+        const existingUser = await UserModel.findOne({username, isVerified: true})
+        if(existingUser){
+            return Response.json({
+                success: false,
+                message: "Username already exists"
+            }, {status: 400})
+        }
+        return Response.json({
+            success: true,
+            message: "Username is unique"
+        }, {status: 400})
     } catch (error) {
         console.log("Error checking username", error)
         return Response.json({
