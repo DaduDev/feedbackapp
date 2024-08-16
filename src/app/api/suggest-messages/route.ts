@@ -3,9 +3,9 @@ import { streamText, StreamData } from 'ai';
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 
-// const openAI = new OpenAI({
-//     apiKey: process.env.OPENAI_API_KEY
-// })
+const openAI = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY
+})
 
 export const maxDuration = 30;
 
