@@ -117,7 +117,11 @@ function UserDashboard() {
   };
 
   if (!session || !session.user) {
-    return <div></div>;
+    return (
+      <div className=" flex items-center justify-center h-64">
+          <h1 className=''>Please Login/Register</h1>
+      </div>
+    );
   }
 
   const { username } = session.user as User;
