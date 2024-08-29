@@ -18,6 +18,7 @@ import { useRouter } from 'next/navigation';
 import { useToast } from '@/components/ui/use-toast';
 import { signInSchema } from '@/schemas/signInSchema';
 
+
 export default function SignInForm() {
   const router = useRouter();
 
@@ -32,31 +33,29 @@ export default function SignInForm() {
   const { toast } = useToast();
   const onSubmit = async (data: z.infer<typeof signInSchema>) => {
     const result = await signIn('credentials', {
-      redirect: false,
-      identifier: data.identifier,
-      password: data.password,
+        redirect: false,
+        identifier: data.identifier,
+        password: data.password,
     });
 
     if (result?.error) {
-      if (result.error === 'CredentialsSignin') {
-        toast({
-          title: 'Login Failed',
-          description: 'Incorrect username or password',
-          variant: 'destructive',
-        });
-      } else {
-        toast({
-          title: 'Error',
-          description: result.error,
-          variant: 'destructive',
-        });
-      }
+        if (result.error === 'CredentialsSignin') {
+            toast({
+                title: 'Login Failed',
+                description: 'Incorrect username or password',
+                variant: 'destructive',
+            });
+        } else {
+            toast({
+                title: 'Error',
+                description: result.error,
+                variant: 'destructive',
+            });
+        }
+    } else {
+        router.push('/dashboard');
     }
-
-    if (result?.url) {
-      router.replace('/dashboard');
-    }
-  };
+};
 
   return (
     <div className="flex justify-center items-center min-h-screen">
@@ -75,7 +74,7 @@ export default function SignInForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Email/Username</FormLabel>
-                  <Input {...field} />
+                  <Input {...form.register('identifier')} />
                   <FormMessage />
                 </FormItem>
               )}
@@ -86,7 +85,7 @@ export default function SignInForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Password</FormLabel>
-                  <Input type="password" {...field} />
+                  <Input type="password" {...form.register('password')} />
                   <FormMessage />
                 </FormItem>
               )}

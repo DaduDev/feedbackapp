@@ -7,7 +7,7 @@ import { Toaster } from '@/components/ui/toaster';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'True Feedback',
+  title: 'Feed-Back App',
   description: 'Real feedback from real people.',
 };
 
@@ -21,7 +21,6 @@ export default async function RootLayout({ children }: RootLayoutProps) {
       <AuthProvider>
         <body className={inter.className}>
           {children}
-          <Toaster />
         </body>
       </AuthProvider>
     </html>
